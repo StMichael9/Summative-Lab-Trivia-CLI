@@ -7,7 +7,6 @@ let timerId; // This will be called later in put into clearInterval
 
 const timer = (startTime, interval) => {
   const startTimer = setInterval(() => {
-    console.log(timeLeft);
     timeLeft--;
     if (timeLeft <= 0) {
       clearInterval(startTimer);
@@ -22,12 +21,15 @@ const askQuestions = async (questionObj) => {
   const userAnswer = await inquirer.select({
     message: questionObj.question,
     choices: questionObj.choices,
+    prefix: "",
+    footer: () => `Time left: ${timeLeft}s`,
   });
+
   if (userAnswer === questionObj.answer) {
-    console.log("Correct!");
+    console.log("✔ Correct!");
     score++;
   } else {
-    console.log("Wrong!");
+    console.log("✖ Wrong!");
   }
 };
 
